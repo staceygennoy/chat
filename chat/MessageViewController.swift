@@ -37,7 +37,7 @@ class MessageViewController: UIViewController, UITableViewDataSource, UITableVie
         tableView.delegate = self
         tableView.dataSource = self
         
-        NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "fetchMessages", userInfo: nil, repeats: true)
+        NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: "fetchMessages", userInfo: nil, repeats: true)
         fetchMessages()
         
     }
@@ -86,7 +86,7 @@ class MessageViewController: UIViewController, UITableViewDataSource, UITableVie
     */
     
     @IBAction func didpressSendButton(sender: AnyObject) {
-        let message = PFObject(className: "message")
+        let message = PFObject(className: "Message")
         
         message["text"] = messageField.text
         
