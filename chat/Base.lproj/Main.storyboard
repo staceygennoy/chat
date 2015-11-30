@@ -47,7 +47,7 @@
                     <connections>
                         <outlet property="passwordField" destination="fcF-ld-D74" id="ROE-aH-GBc"/>
                         <outlet property="userNameField" destination="kYH-uO-afl" id="jxr-pa-iqL"/>
-                        <segue destination="JuO-eP-xBz" kind="modal" id="vEn-1p-Vn2"/>
+                        <segue destination="JuO-eP-xBz" kind="modal" identifier="loginSegue" id="X9v-gz-ZZi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -72,6 +72,9 @@
                                 <rect key="frame" x="259" y="44" width="36" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Send"/>
+                                <connections>
+                                    <action selector="didpressSendButton:" destination="JuO-eP-xBz" eventType="touchUpInside" id="xsG-qx-FBa"/>
+                                </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="92" sectionHeaderHeight="28" sectionFooterHeight="28" id="Y4A-tP-eku">
                                 <rect key="frame" x="0.0" y="105" width="320" height="463"/>
@@ -103,6 +106,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="messageField" destination="4j7-r3-SAU" id="m7Q-zQ-gMy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ObH-9r-hZh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

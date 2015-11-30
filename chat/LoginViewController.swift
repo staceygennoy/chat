@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class LoginViewController: UIViewController {
 
@@ -27,10 +28,37 @@ class LoginViewController: UIViewController {
     
 
     @IBAction func didPressSignInButton(sender: AnyObject) {
+        PFUser.logInWithUsernameInBackground(userNameField.text!, password: passwordField.text!) { (user: PFUser?, error: NSError?) -> Void in
+            if error == nil {
+                self.performSegueWithIdentifier("loginSegue", sender: nil)
+            } else {
+                print("Error: \(error)")
+            }
+            
+        }
+        
     }
     
     
     @IBAction func didPressCreateAccountButton(sender: AnyObject) {
+        let user = PFUser()
+        
+        user.username = userNameField.text
+        user.password = passwordField.text
+        
+        
+        // at this point, come back from parse
+        user.signUpInBackgroundWithBlock { (status: Bool, error: NSError?) -> Void in
+            if error == nil {
+                self.performSegueWithIdentifier("loginSegue", sender: nil)
+            } else {
+                print("Error: \(error)")
+            }
+            
+        }
+        
+        
+        
     }
    
     
