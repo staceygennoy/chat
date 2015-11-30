@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class MessageViewController: UIViewController {
 
@@ -35,7 +36,13 @@ class MessageViewController: UIViewController {
     */
     
     @IBAction func didpressSendButton(sender: AnyObject) {
+        let message = PFObject(className: "message")
         
+        message["text"] = messageField.text
+        
+        message.saveInBackgroundWithBlock { (status:Bool, error:NSError?) -> Void in
+            print("message saved")
+        }
     }
 
 }
