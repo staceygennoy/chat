@@ -9,14 +9,37 @@
 import UIKit
 import Parse
 
-class MessageViewController: UIViewController {
+class MessageViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var messageField: UITextField!
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    var messages: [PFObject]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        
+        //initialize the array to something
+        messages = []
+        
+        // to query the user table
+        let query = PFQuery(className: "Message")
+        query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) -> Void in
+            print(objects)
+            
+            self.messages = objects
+            self.tableView.reloadData()
+        }
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "fetchMessages", userInfo: nil, repeats: true)
+        fetchMessages()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -24,6 +47,33 @@ class MessageViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func fetchMessages() {
+        // to query the user table
+        let query = PFQuery(className: "Message")
+        query.orderByDescending("createdAt")
+        query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) -> Void in
+            print(objects)
+            
+            self.messages = objects
+            self.tableView.reloadData()
+        }
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return messages.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell  = tableView.dequeueReusableCellWithIdentifier("MessageCell") as!
+        MessageCell
+        
+        let message = messages[indexPath.row]
+        
+        // ? because text could be blank
+        cell.messageLabel.text = message["text"] as? String
+        
+        return cell
+    }
 
     /*
     // MARK: - Navigation
